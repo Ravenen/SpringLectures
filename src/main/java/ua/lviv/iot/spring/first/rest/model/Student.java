@@ -4,11 +4,29 @@ public class Student {
 
   private String firstName;
   private String lastName;
-
-  public Student(String firstName, String lastName) {
+  private Integer id;
+  
+  public Student() {
+    
+  }
+  
+  public Student(Integer id, String firstName, String lastName) {
     super();
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
+  }
+
+  public Student(String firstName, String lastName) {
+    this(null, firstName, lastName);
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   public String getFirstName() {

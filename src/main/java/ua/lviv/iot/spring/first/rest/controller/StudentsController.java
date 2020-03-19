@@ -3,8 +3,8 @@ package ua.lviv.iot.spring.first.rest.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.lviv.iot.spring.first.rest.model.Student;
@@ -20,7 +20,10 @@ public class StudentsController {
   }
   
   @PostMapping
-  public Student createStudent(Student student) {
-    return null;
+  public Student createStudent(@RequestBody Student student) {
+    if (student.getId() == null) {
+      student.setId(2002);
+    }
+    return student;
   }
 } 
