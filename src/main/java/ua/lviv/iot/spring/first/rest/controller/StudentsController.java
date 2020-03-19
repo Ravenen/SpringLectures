@@ -15,8 +15,7 @@ public class StudentsController {
 
   @GetMapping(path = "/{id}")
   public Student getStudent(@PathVariable("id") Integer studentId) {
-    System.out.println(studentId);
-    return new Student("Pedro", "Defolto");
+    return new Student(studentId, "Pedro", "Defolto #" + studentId);
   }
   
   @PostMapping
