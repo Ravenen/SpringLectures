@@ -50,8 +50,11 @@ public class StudentsController {
   }
 
   @PutMapping(path = "/{id}")
-  public Student updateStudent(final @PathVariable("id") Integer studentId, final @RequestBody Student student) {
+  public ResponseEntity<Student> updateStudent(final @PathVariable("id") Integer studentId,
+      final @RequestBody Student student) {
     student.setId(studentId);
-    return students.put(studentId, student);
+    ResponseEntity<Student> response = students.put(studentId, student) == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        : new ResponseEntity<>(student, HttpStatus.OK);
+    return response;
   }
 }
