@@ -1,10 +1,8 @@
 package ua.lviv.iot.spring.first.rest.controller;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,29 +24,25 @@ import ua.lviv.iot.spring.first.rest.model.Student;
 public class StudentsController {
 
   private Map<Integer, Student> students = new HashMap<>();
-  private AtomicInteger idCounter = new AtomicInteger();
   @Autowired
   private StudentService studentService;
-  
+
+  // INSERT INTO `lidl-test-db`.`group` (`id`, `enrollment_year`, `name`) VALUES
+  // ('2001', '2020', 'ір-14');
+
   @GetMapping
   public List<Student> getStudents() {
-    //return new LinkedList<Student>(students.values());
     return studentService.getAllStudents();
   }
 
   @GetMapping(path = "/{id}")
   public Student getStudent(final @PathVariable("id") Integer studentId) {
-    //return students.get(studentId);
     return studentService.getStudent(studentId);
   }
 
   @PostMapping
   public Student createStudent(final @RequestBody Student student) {
-    
-    student.setId(idCounter.incrementAndGet());
-    studentService.createStudent(student);
-    //students.put(student.getId(), student);
-    return student;
+    return studentService.createStudent(student);
   }
 
   @DeleteMapping(path = "/{id}")
@@ -61,7 +55,8 @@ public class StudentsController {
   public ResponseEntity<Student> updateStudent(final @PathVariable("id") Integer studentId,
       final @RequestBody Student student) {
     student.setId(studentId);
-    ResponseEntity<Student> response = students.replace(studentId, student) == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+    ResponseEntity<Student> response = students.replace(studentId, student) == null
+        ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
         : new ResponseEntity<>(student, HttpStatus.OK);
     return response;
   }
