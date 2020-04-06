@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.lviv.iot.spring.first.business.StudentService;
@@ -30,9 +31,12 @@ public class StudentsController {
   // INSERT INTO `lidl-test-db`.`group` (`id`, `enrollment_year`, `name`) VALUES
   // ('2001', '2020', 'ір-14');
 
-  @GetMapping
-  public List<Student> getStudents() {
-    return studentService.getAllStudents();
+  @GetMapping()
+  public List<Student> getStudents(final @RequestParam(value = "firstName", required = false) String firstName) {
+    if (firstName == null) {
+      return studentService.getAllStudents();
+    }
+    return studentService.getAllByFirstName(firstName);
   }
 
   @GetMapping(path = "/{id}")
