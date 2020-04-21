@@ -25,4 +25,10 @@ public class StudentService {
   public List<Student> getAllStudents() {
     return studentRepository.findAll();
   }
+  
+  // TODO: write update method
+  
+  public List<Student> getAllByFirstName(String firstName) {
+    return studentRepository.findAllByFirstName(firstName);
+  }
 }
